@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @TeleOp(name="BushDid9-11",group="Master")
-
+@Disabled
 
 public class
 BushDidNothingWrong extends OpMode {
