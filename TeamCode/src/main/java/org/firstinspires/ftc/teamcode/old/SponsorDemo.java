@@ -1,35 +1,24 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.old;
 
 import com.qualcomm.ftccommon.SoundPlayer;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Rochesterftc10303 on 10/4/2018.
  */
 
-@TeleOp(name="BushDid9-11",group="Master")
-@Disabled
+@TeleOp(name="Sponsor Demo",group="Master")
 
 public class
-BushDidNothingWrong extends OpMode {
+SponsorDemo extends OpMode {
 
     DcMotor fl;
     DcMotor fr;
     DcMotor bl;
     DcMotor br;
-    DcMotor RightRL;
-    DcMotor LeftRL;
-    DcMotor arm;
-    CRServo sweeper;
-    int deltaARL = 1;
-    int ticksPerRev = 1120;
-    double sweeperPower;
 
     // Declare OpMode members.
     private boolean helloThereFound;      // Sound file present flag
@@ -49,10 +38,7 @@ BushDidNothingWrong extends OpMode {
         fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
         br = hardwareMap.dcMotor.get("back right");
-        RightRL = hardwareMap.dcMotor.get("right rl");
-        LeftRL = hardwareMap.dcMotor.get("left rl");
-        arm = hardwareMap.dcMotor.get("arm");
-        sweeper = hardwareMap.crservo.get("sweeper");
+
 
         //LeftRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //RightRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -73,7 +59,7 @@ BushDidNothingWrong extends OpMode {
 
         //floats to streamline drive code
         float x = gamepad1.left_stick_x;
-        float z = gamepad1.left_stick_y;
+        float z = -gamepad1.left_stick_y;
         float y = gamepad1.right_stick_x;
 
         /*
@@ -92,48 +78,11 @@ BushDidNothingWrong extends OpMode {
             br.setPower(-y + x - z);
         }
 
-        /*
-        ARM Raise and Lower
-        Gamepad 2 left-stick
-         */
-        float arl = -gamepad2.left_stick_y/deltaARL;
-        LeftRL.setPower(arl);
-        RightRL.setPower(arl);
-
-        //double power;
-        //if(LeftRL.getCurrentPosition()> 0) {
-           // power = (LeftRL.getCurrentPosition()/12);
-        //} else if (LeftRL.getCurrentPosition()< 0) {
-            //power =(-LeftRL.getCurrentPosition()/12);
-        //}
-
-        telemetry.addData("Lift speed",  (arl*100)+"%");
-        telemetry.addData("ARL", arl);
-        telemetry.addData("Left Lift Rotation", LeftRL.getCurrentPosition());
-        telemetry.addData ("Right Lift Rotation", RightRL.getCurrentPosition());
-
-        // sweeper on off gamepad2 a
-        if (gamepad1.left_bumper) {
-           sweeperPower = 1;
-        } else if (gamepad1.right_bumper) {
-            sweeperPower = -1;
-
-        } else {
-            sweeperPower = 0;
-        }
-        sweeper.setPower(sweeperPower);
-        telemetry.addData("Sweeper Power", sweeperPower);
-
-
-        float ARM = gamepad2.left_trigger - gamepad2.right_trigger;
-        arm.setPower(ARM);
-        telemetry.addData("Arm Slide Power", ARM);
-
         //if(gamepad1.x) {
-        //    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, hellothere);
+        //    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, helloThereID);
         //}
         //if(gamepad2.x) {
-        //    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, hellothere);
+        //    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, helloThereID);
         //}
 
         telemetry.update();

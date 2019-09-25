@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hal9000;
+package org.firstinspires.ftc.teamcode.old.Hal9000;
 
 import android.graphics.Color;
 
@@ -64,7 +64,7 @@ public class rainbowSixSiege extends LinearOpMode {
 
         // Determine Resource IDs for sounds built into the RC application.
         int silverSoundID = hardwareMap.appContext.getResources().getIdentifier("silver", "raw", hardwareMap.appContext.getPackageName());
-        int goldSoundID   = hardwareMap.appContext.getResources().getIdentifier("gold",   "raw", hardwareMap.appContext.getPackageName());
+        int goldSoundID   = hardwareMap.appContext.getResources().getIdentifier("gold", "raw", hardwareMap.appContext.getPackageName());
         int hellothereID = hardwareMap.appContext.getResources().getIdentifier("hellothere", "raw", hardwareMap.appContext.getPackageName());
 
         // Determine if sound resources are found.

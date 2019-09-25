@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.Hal9000;
+package org.firstinspires.ftc.teamcode.old.Hal9000;
 
 import android.graphics.Color;
 
 import com.qualcomm.ftccommon.SoundPlayer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -12,9 +13,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Rochesterftc10303 on 11/3/2017.  *****REMOVE BEFORE FLIGHT*****
  */
+@Disabled
+@Autonomous (name="color sensor test",group="REMOVE BEFORE FLIGHT")
 
-@Autonomous (name="Left Auto",group="REMOVE BEFORE FLIGHT")
-public class Dave2 extends LinearOpMode {
+public class colorSensorTest extends LinearOpMode {
 
     DcMotor fl;
     DcMotor fr;
@@ -31,6 +33,7 @@ public class Dave2 extends LinearOpMode {
     private boolean silverFound;
     private boolean hellothereFound;
 
+
     public void move(double x, double y, double z, int time) {
 
         telemetry.addData("Status", "Moving" + time + "milliseconds for x:" + x + "y:" + y + "z:" + z);
@@ -41,7 +44,7 @@ public class Dave2 extends LinearOpMode {
         fr.setPower(y - x + z);
         br.setPower(y + x + z);
 
-        sleep(time);
+        sleep(time * 1000);
 
         fl.setPower(0);
         bl.setPower(0);
@@ -62,7 +65,7 @@ public class Dave2 extends LinearOpMode {
 
         // Determine Resource IDs for sounds built into the RC application.
         int silverSoundID = hardwareMap.appContext.getResources().getIdentifier("silver", "raw", hardwareMap.appContext.getPackageName());
-        int goldSoundID   = hardwareMap.appContext.getResources().getIdentifier("gold",   "raw", hardwareMap.appContext.getPackageName());
+        int goldSoundID   = hardwareMap.appContext.getResources().getIdentifier("gold", "raw", hardwareMap.appContext.getPackageName());
         int hellothereID = hardwareMap.appContext.getResources().getIdentifier("hellothere", "raw", hardwareMap.appContext.getPackageName());
 
         // Determine if sound resources are found.
@@ -105,7 +108,6 @@ public class Dave2 extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
-
             // convert the RGB values to HSV values.
             // multiply by the SCALE_FACTOR.
             // then cast it back to int (SCALE_FACTOR is a double)
@@ -113,17 +115,20 @@ public class Dave2 extends LinearOpMode {
                     (int) (sensorColor.green() * SCALE_FACTOR),
                     (int) (sensorColor.blue() * SCALE_FACTOR),
                     hsvValues);
-
             if(opModeTime) {
+                if (hsvValues [0] > 30 && hsvValues [0] < 40) {
+                    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, goldSoundID);
+                    telemetry.addData("Status:", "Gold Found");
+                } else if (hsvValues [0] > 90) {
+                    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, silverSoundID);
+                    telemetry.addData("Status:", "Silver Found");
+                } else {
+                    telemetry.addData("Status:", "Object Not Found!");
+                }
+                telemetry.update();
 
-                move(0,0.5,0,500);
-                move(0.5,0.1,0,4000);
-                move(0,0,0.5,300);
-                move(0,0.5,0,1000);
-
-                opModeTime = false;
             }else {
-                telemetry.addData("Status", "Robot is stopped");
+                telemetry.addData("Status:", "Robot is stopped");
                 telemetry.update();
             }
         }

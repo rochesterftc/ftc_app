@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.old;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -10,25 +10,28 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by Rochesterftc10303 on 10/4/2018.
  */
-@Disabled
+
 @TeleOp(name="Screw You!",group="Master")
 
 
 public class ScrewYou extends OpMode {
 
-    DcMotor arm;
+    DcMotor test1;
+    DcMotor test2;
 
     public void init() {
 
-        arm = hardwareMap.dcMotor.get("arm");
+        test1 = hardwareMap.dcMotor.get("test1");
+        test2 = hardwareMap.dcMotor.get("test2");
 
     }
 
     public void loop() {
 
-        float ARM = gamepad1.left_stick_y;
-        arm.setPower(ARM);
-        telemetry.addData("Arm Power", ARM);
+        float power = gamepad1.left_stick_y;
+        test1.setPower(power);
+        test2.setPower(power);
+        telemetry.addData("Power", power);
         telemetry.update();
     }
 }
